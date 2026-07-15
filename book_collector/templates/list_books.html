@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Список книг</title>
+</head>
+<body>
+
+    <h1>Список книг</h1>
+
+    <form method="GET" action="{{ url_for('list_books') }}">
+        <input type="text" name="q" value="{{ query or '' }}" placeholder="Пошук за назвою або автором">
+        <button type="submit">Шукати</button>
+    </form>
+
+    <ul>
+        {% for book in books %}
+            <li>
+                {{ book.title }} — {{ book.author }}
+                {% if book.genre %} ({{ book.genre }}){% endif %}
+                ({{ book.year or "рік не вказано" }})
+
+                <a href="{{ url_for('edit_book', book_id=book.id) }}">Редагувати</a>
+
+                <form action="{{ url_for('delete_book', book_id=book.id) }}" method="POST" style="display:inline;">
+                    <button type="submit">Видалити</button>
+                </form>
+            </li>
+        {% else %}
+            <li>Книг не знайдено</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('add_book') }}">Додати нову книгу</a>
+
+</body>
+</html>

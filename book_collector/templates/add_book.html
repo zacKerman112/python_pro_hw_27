@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Додати книгу</title>
+</head>
+<body>
+
+    <h1>{% if edit %}Редагувати книгу{% else %}Додати книгу{% endif %}</h1>
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=30) }}
+        </p>
+        <p>
+            {{ form.genre.label }}<br>
+            {{ form.genre(size=30) }}
+        </p>
+        <p>
+            {{ form.author.label }}<br>
+            {{ form.author(size=30) }}
+        </p>
+        <p>
+            {{ form.year.label }}<br>
+            {{ form.year() }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+    <a href="{{ url_for('list_books') }}">Переглянути всі книги</a>
+
+</body>
+</html>
